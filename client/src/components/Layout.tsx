@@ -1,93 +1,145 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Home, Crop, Image, Layers, Package, Menu, X, ChevronDown, Monitor } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Package, Image, Crop, Layers, Menu, X, ChevronDown, Zap, Palette, Move, Scissors } from 'lucide-react';
 
-const Layout = ({ children }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [isProductsOpen, setIsProductsOpen] = React.useState(false);
+  const location = useLocation();
+
+  const tools = [
+    { name: 'Compress', href: '/compress', icon: Package },
+    { name: 'Resize & Convert', href: '/resize', icon: Image },
+    { name: 'Crop', href: '/crop', icon: Crop },
+    { name: 'Remove BG', href: '/remove-bg', icon: Layers },
+    { name: 'Bulk Process', href: '/bulk', icon: Zap },
+  ];
+
+  const isActive = (path: string) => location.pathname === path;
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 text-gray-900 font-sans antialiased">
+    <div className="flex flex-col min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100 selection:text-indigo-900">
       {/* Navbar */}
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <nav className="fixed w-full z-50 transition-all duration-300 bg-white/80 backdrop-blur-md border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex">
-              <Link to="/" className="flex-shrink-0 flex items-center">
-                <Monitor className="h-8 w-8 text-indigo-600" />
-                <span className="ml-2 text-xl font-bold text-gray-900">ImgUtils</span>
+          <div className="flex justify-between h-16 items-center">
+            
+            {/* Logo */}
+            <div className="flex-shrink-0 flex items-center gap-2">
+              <Link to="/" className="flex items-center gap-2 group">
+                <div className="bg-indigo-600 rounded-lg p-1.5 text-white shadow-lg shadow-indigo-500/30 group-hover:scale-105 transition-transform duration-200">
+                    <Palette size={20} strokeWidth={2.5} />
+                </div>
+                <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700">
+                  ImgUtils
+                </span>
               </Link>
-              <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                <Link to="/" className="border-transparent text-gray-500 hover:border-indigo-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                  Home
-                </Link>
+            </div>
+
+            {/* Desktop Menu */}
+            <div className="hidden md:flex md:space-x-8 items-center">
+              <Link 
+                to="/" 
+                className={`text-sm font-medium transition-colors duration-200 ${
+                  isActive('/') ? 'text-indigo-600' : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                Home
+              </Link>
+              
+              {/* Dropdown */}
+              <div className="relative group">
+                <button 
+                  className={`flex items-center gap-1 text-sm font-medium transition-colors duration-200 focus:outline-none ${
+                    tools.some(t => isActive(t.href)) ? 'text-indigo-600' : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                  onClick={() => setIsProductsOpen(!isProductsOpen)}
+                  onMouseEnter={() => setIsProductsOpen(true)}
+                  onMouseLeave={() => setIsProductsOpen(false)}
+                >
+                  Tools <ChevronDown size={14} className={`transition-transform duration-200 ${isProductsOpen ? 'rotate-180' : ''}`} />
+                </button>
                 
-                {/* Products Dropdown */}
-                <div className="relative inline-flex items-center">
-                  <button 
-                    onClick={() => setIsProductsOpen(!isProductsOpen)}
-                    className="border-transparent text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium focus:outline-none"
-                  >
-                    Tools <ChevronDown className="ml-1 h-4 w-4" />
-                  </button>
-                  
-                  {isProductsOpen && (
-                    <div className="absolute top-16 left-0 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-                      <div className="py-1" role="menu" aria-orientation="vertical">
-                        <Link to="/compress" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-                          <Package className="mr-3 h-5 w-5 text-gray-400" /> Compress
-                        </Link>
-                        <Link to="/resize" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-                          <Image className="mr-3 h-5 w-5 text-gray-400" /> Resize & Convert
-                        </Link>
-                        <Link to="/crop" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-                          <Crop className="mr-3 h-5 w-5 text-gray-400" /> Crop
-                        </Link>
-                        <Link to="/remove-bg" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-                          <Layers className="mr-3 h-5 w-5 text-gray-400" /> Remove Background
-                        </Link>
-                        <Link to="/bulk" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-                          <Package className="mr-3 h-5 w-5 text-gray-400" /> Bulk Process
-                        </Link>
-                      </div>
-                    </div>
-                  )}
+                {/* Dropdown Menu */}
+                <div 
+                  className={`absolute left-1/2 -translate-x-1/2 mt-0 w-64 bg-white rounded-xl shadow-xl border border-slate-100 ring-1 ring-slate-900/5 overflow-hidden transition-all duration-200 origin-top ${
+                    isProductsOpen ? 'opacity-100 scale-100 translate-y-2 pointer-events-auto' : 'opacity-0 scale-95 translate-y-0 pointer-events-none'
+                  }`}
+                  onMouseEnter={() => setIsProductsOpen(true)}
+                  onMouseLeave={() => setIsProductsOpen(false)}
+                >
+                  <div className="p-2">
+                    {tools.map((tool) => (
+                      <Link 
+                        key={tool.name}
+                        to={tool.href} 
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/80 transition-colors group/item"
+                        onClick={() => setIsProductsOpen(false)}
+                      >
+                        <tool.icon size={18} className="text-slate-400 group-hover/item:text-indigo-500 transition-colors" />
+                        {tool.name}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-            
-            {/* Mobile menu button */}
-            <div className="-mr-2 flex items-center sm:hidden">
-              <button onClick={() => setIsOpen(!isOpen)} className="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+
+            {/* CTA Button (Desktop) */}
+            <div className="hidden md:flex">
+                <a href="https://github.com/niduranga/image-utility-app" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
+                    GitHub
+                </a>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="flex items-center md:hidden">
+              <button 
+                onClick={() => setIsOpen(!isOpen)} 
+                className="p-2 rounded-lg text-slate-500 hover:bg-slate-100 focus:outline-none transition-colors"
+              >
                 <span className="sr-only">Open main menu</span>
-                {isOpen ? <X className="block h-6 w-6" /> : <Menu className="block h-6 w-6" />}
+                {isOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        <div className={`${isOpen ? 'block' : 'hidden'} sm:hidden`}>
-          <div className="pt-2 pb-3 space-y-1">
-            <Link to="/" className="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Home</Link>
-            <Link to="/compress" className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Compress</Link>
-            <Link to="/resize" className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Resize</Link>
-            <Link to="/crop" className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Crop</Link>
-            <Link to="/remove-bg" className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Remove BG</Link>
+        {/* Mobile Menu Overlay */}
+        <div className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+          <div className="px-4 pt-2 pb-6 space-y-1 bg-white border-b border-slate-100 shadow-lg">
+            <Link to="/" onClick={() => setIsOpen(false)} className={`block px-3 py-2 rounded-md text-base font-medium ${isActive('/') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'}`}>Home</Link>
+            {tools.map((tool) => (
+               <Link 
+                 key={tool.name}
+                 to={tool.href} 
+                 onClick={() => setIsOpen(false)}
+                 className={`flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium ${isActive(tool.href) ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'}`}
+               >
+                 <tool.icon size={18} />
+                 {tool.name}
+               </Link>
+            ))}
           </div>
         </div>
       </nav>
 
       {/* Main Content */}
-      <main className="flex-grow">
+      <main className="flex-grow pt-16">
         {children}
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-12">
-        <div className="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
-          <p className="mt-8 text-center text-base text-gray-400">
-            &copy; 2026 Image Utility App. All rights reserved.
+      <footer className="bg-white border-t border-slate-200 mt-auto">
+        <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-2">
+             <div className="bg-slate-100 rounded p-1 text-slate-500">
+                <Palette size={16} />
+             </div>
+             <span className="text-sm font-semibold text-slate-900">ImgUtils</span>
+          </div>
+          <p className="text-sm text-slate-500">
+            &copy; {new Date().getFullYear()} Open Source. Built with ❤️ using React & Tailwind.
           </p>
         </div>
       </footer>
