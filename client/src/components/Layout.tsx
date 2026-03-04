@@ -85,12 +85,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               </div>
             </div>
 
-            {/* CTA Button (Desktop) */}
-            <div className="hidden md:flex">
-                <a href="https://github.com/niduranga/image-utility-app" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
-                    GitHub
-                </a>
-            </div>
+
 
             {/* Mobile Menu Button */}
             <div className="flex items-center md:hidden">

@@ -101,24 +101,45 @@ const Home = () => {
             </div>
 
             {/* Hero Image Mockup */}
-            <div className="mt-16 relative mx-auto max-w-5xl animate-fade-in-up animation-delay-500">
-                <div className="relative rounded-2xl bg-slate-900/5 p-2 ring-1 ring-inset ring-slate-900/10 lg:rounded-3xl lg:p-4 backdrop-blur-sm">
-                    <div className="rounded-xl overflow-hidden shadow-2xl bg-white aspect-[16/9] flex items-center justify-center border border-slate-100">
-                       <div className="grid grid-cols-2 gap-8 p-12 w-full h-full bg-slate-50">
+            <div className="mt-20 relative mx-auto max-w-5xl animate-fade-in-up animation-delay-500 perspective-1000">
+                <div className="relative rounded-3xl bg-slate-900/10 p-4 ring-1 ring-inset ring-slate-900/10 backdrop-blur-xl transition-transform duration-500 hover:scale-[1.01] hover:rotate-x-2">
+                    <div className="rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-slate-50 to-slate-100 aspect-[16/9] flex items-center justify-center border border-white/50 relative">
+                       
+                       {/* Abstract Background Elements inside Mockup */}
+                       <div className="absolute top-0 right-0 w-full h-full opacity-30 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat"></div>
+                       <div className="absolute -top-24 -left-24 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl"></div>
+                       <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl"></div>
+
+                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 p-8 md:p-12 w-full h-full items-center relative z-10">
                           {/* Left Side: Original */}
-                          <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-4 flex flex-col items-center justify-center relative overflow-hidden group">
-                              <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))]"></div>
-                              <FileImage size={64} className="text-slate-300 mb-4" />
-                              <div className="text-sm font-medium text-slate-500">Original.jpg</div>
-                              <div className="text-xs text-slate-400">2.4 MB</div>
+                          <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-lg border border-white/60 p-6 flex flex-col items-center justify-center relative group transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                              <div className="absolute -top-3 -left-3 bg-red-50 text-red-600 px-3 py-1 rounded-full text-xs font-bold border border-red-100 shadow-sm">BEFORE</div>
+                              <div className="w-24 h-24 bg-slate-100 rounded-xl mb-4 flex items-center justify-center text-slate-300 group-hover:scale-105 transition-transform duration-300">
+                                <FileImage size={40} />
+                              </div>
+                              <div className="text-base font-bold text-slate-800">Travel_Photo.raw</div>
+                              <div className="text-sm font-medium text-slate-400 mt-1">5.2 MB • PNG</div>
                           </div>
                           
+                          {/* Arrow for Mobile */}
+                          <div className="md:hidden flex justify-center text-slate-300">
+                            <ArrowRight size={24} className="rotate-90 md:rotate-0" />
+                          </div>
+
                           {/* Right Side: Processed */}
-                          <div className="bg-white rounded-lg shadow-sm border border-indigo-200 p-4 flex flex-col items-center justify-center relative overflow-hidden ring-4 ring-indigo-50">
-                              <div className="absolute top-2 right-2 text-green-500"><CheckCircle size={20} /></div>
-                              <FileImage size={64} className="text-indigo-500 mb-4" />
-                              <div className="text-sm font-medium text-slate-900">Optimized.webp</div>
-                              <div className="text-xs text-green-600 font-bold">145 KB (-94%)</div>
+                          <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-indigo-100 p-6 flex flex-col items-center justify-center relative ring-4 ring-indigo-50/50 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:ring-indigo-100">
+                              <div className="absolute -top-3 -right-3 bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full text-xs font-bold border border-emerald-100 shadow-sm flex items-center gap-1">
+                                <CheckCircle size={12} /> AFTER
+                              </div>
+                              <div className="w-24 h-24 bg-indigo-50 rounded-xl mb-4 flex items-center justify-center text-indigo-500 relative overflow-hidden group">
+                                <FileImage size={40} className="relative z-10 transition-transform duration-300 group-hover:scale-110" />
+                                <div className="absolute inset-0 bg-indigo-100/50 scale-0 group-hover:scale-100 transition-transform duration-300 rounded-xl"></div>
+                              </div>
+                              <div className="text-base font-bold text-slate-900">Optimized_Web.webp</div>
+                              <div className="flex items-center gap-2 mt-1">
+                                <span className="text-sm font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">240 KB</span>
+                                <span className="text-xs font-medium text-slate-400 line-through">5.2 MB</span>
+                              </div>
                           </div>
                        </div>
                     </div>
