@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Force class-based dark mode for Tailwind V4 */
+@variant dark (&:where(.dark, .dark *));
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
