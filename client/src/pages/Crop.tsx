@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import UploadZone from '../components/UploadZone';
 import Cropper from 'react-easy-crop';
 import { Download } from 'lucide-react';
-import { getCroppedImg } from '../utils/cropImage';
+import getCroppedImg from '../utils/cropImage';
 
 const Crop = () => {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
