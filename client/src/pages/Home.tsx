@@ -198,9 +198,9 @@ const Home = () => {
              <ToolCard 
                 icon={Zap} 
                 title="Instant Filter" 
-                desc="Apply professional filters and adjustments to enhance your photos in one click. (Coming Soon)" 
-                link="#" 
-                color="gray"
+                desc="Apply professional filters and adjustments to enhance your photos in one click." 
+                link="/filters" 
+                color="orange"
             />
           </div>
         </div>

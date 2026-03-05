@@ -3,9 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { Package, Image, Crop, Layers, Menu, X, ChevronDown, Zap, Palette, Move, Scissors, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
 
+import AdPlaceholder from './AdPlaceholder';
+
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [isProductsOpen, setIsProductsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isProductsOpen, setIsProductsOpen] = useState(false);
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
 
@@ -15,6 +17,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     { name: 'Crop', href: '/crop', icon: Crop },
     { name: 'Remove BG', href: '/remove-bg', icon: Layers },
     { name: 'Bulk Process', href: '/bulk', icon: Zap },
+    { name: 'Instant Filters', href: '/filters', icon: Palette },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -138,6 +141,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       {/* Main Content */}
       <main className="flex-grow pt-16 relative z-0">
         {children}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+           <AdPlaceholder size="banner" />
+        </div>
       </main>
 
       {/* Footer */}

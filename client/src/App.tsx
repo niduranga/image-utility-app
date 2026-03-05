@@ -6,6 +6,7 @@ import Resize from './pages/Resize';
 import Crop from './pages/Crop';
 import RemoveBg from './pages/RemoveBg';
 import Bulk from './pages/Bulk';
+import Filters from './pages/Filters';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/crop" element={<Crop />} />
           <Route path="/remove-bg" element={<RemoveBg />} />
           <Route path="/bulk" element={<Bulk />} />
+          <Route path="/filters" element={<Filters />} />
         </Routes>
       </Layout>
     </Router>
