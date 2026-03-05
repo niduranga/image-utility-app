@@ -20,7 +20,7 @@ A full-stack MERN application for manipulating images directly in the browser an
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/niduranga/image-utility-app.git
    cd image-utility-app
    ```
 
