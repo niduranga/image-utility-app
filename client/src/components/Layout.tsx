@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Package, Image, Crop, Layers, Menu, X, ChevronDown, Zap, Palette, Move, Scissors, Sun, Moon } from 'lucide-react';
+import { Package, Image, Crop, Layers, Menu, X, ChevronDown, Zap, Palette, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
 
 import AdPlaceholder from './AdPlaceholder';
@@ -156,7 +156,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
              <span className="text-sm font-semibold text-slate-900 dark:text-white">ImgUtils</span>
           </div>
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            &copy; {new Date().getFullYear()} Open Source. Built with ❤️ using React & Tailwind.
+            &copy; {new Date().getFullYear()} Built by Niduranga Jayarathna.
           </p>
         </div>
       </footer>
